@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class ChatComponent extends StatefulWidget {
   @override
@@ -7,15 +9,26 @@ class ChatComponent extends StatefulWidget {
 }
 
 class _ChatComponentState extends State<ChatComponent> {
-  String _barcode = '';
+  String _response = '';
   final _textFieldController = TextEditingController();
   final _focusNode = FocusNode();
 
   void _submitQuestion(String question) async {
-    final answer = question;
-    
-    setState(() {
-      _barcode = 'Answer: ${answer}';
+    var apiUrl = Uri.parse('https://cwai-api.comwork.io/v1/prompt');
+
+    var body = json.encode({
+      'message': question
+    });
+
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+
+    var result = await http.post(apiUrl, body: body, headers: headers);
+    var response = json.decode(result.body);
+
+    setState(() async {
+      _response = 'Answer: ${response['response'][0]}';
     });
 
     _textFieldController.clear();
@@ -48,7 +61,7 @@ class _ChatComponentState extends State<ChatComponent> {
               autofocus: true,
             ),
             SizedBox(height: 10),
-            Text(_barcode, style: TextStyle(fontSize: 30)),
+            Text(_response, style: TextStyle(fontSize: 30)),
           ],
         ),
       ),
