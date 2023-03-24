@@ -40,6 +40,10 @@ class _ChatComponentState extends State<ChatComponent> {
     _focusNode.requestFocus();
   }
 
+  void _regenerateResponse() async {
+    _submitQuestion(_textQuestionController.text);
+  }
+
   @override
   void dispose() {
     _textFieldController.dispose();
@@ -122,6 +126,17 @@ class _ChatComponentState extends State<ChatComponent> {
                 ),
                 maxLines: null
               )
+            ),
+            SizedBox(height: 10),
+            Visibility(
+              visible: _isVisible,
+              child: ElevatedButton(
+                onPressed: _regenerateResponse,
+                child: Text('Regenerate response'),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF114575)), 
+                ),
+              ),
             )
           ],
         ),
