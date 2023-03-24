@@ -9,8 +9,8 @@ class ChatComponent extends StatefulWidget {
 }
 
 class _ChatComponentState extends State<ChatComponent> {
-  String _response = '';
   final _textFieldController = TextEditingController();
+  final _textResponseController = TextEditingController();
   final _focusNode = FocusNode();
 
   void _submitQuestion(String question) async {
@@ -28,7 +28,7 @@ class _ChatComponentState extends State<ChatComponent> {
     var response = json.decode(result.body);
 
     setState(() async {
-      _response = 'Answer: ${response['response'][0]}';
+      _textResponseController.text = response['response'][0];
     });
 
     _textFieldController.clear();
@@ -61,7 +61,30 @@ class _ChatComponentState extends State<ChatComponent> {
               autofocus: true,
             ),
             SizedBox(height: 10),
-            Text(_response, style: TextStyle(fontSize: 15), textAlign: TextAlign.left),
+            TextField(
+              controller: _textResponseController,
+              enabled: false,
+              decoration: InputDecoration(
+                hintText: 'The answer will appear here...',
+                filled: true,
+                fillColor: Color(0xFFDEDEDE),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: BorderSide(
+                    color: Color(0xFFEFEFEF),
+                    width: 1.0,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: BorderSide(
+                    color: Color(0xFF114575),
+                    width: 2.0,
+                  ),
+                ),
+              ),
+              maxLines: null
+            )
           ],
         ),
       ),
