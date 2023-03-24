@@ -2,6 +2,7 @@ version: '3.3'
 
 services:
   cwai_chat:
+    image: cwai_chat:latest
     build: 
       context: .
       dockerfile: Dockerfile
