@@ -17,6 +17,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: Text('CWAI Chat'),
+        backgroundColor: Color(0xFF114575)
       ),
       body: Column(
         children: [

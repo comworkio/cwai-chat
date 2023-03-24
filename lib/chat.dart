@@ -45,7 +45,7 @@ class _ChatComponentState extends State<ChatComponent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: Container(
         child: Column(
           children: [
             SizedBox(height: 10),
@@ -61,7 +61,7 @@ class _ChatComponentState extends State<ChatComponent> {
               autofocus: true,
             ),
             SizedBox(height: 10),
-            Text(_response, style: TextStyle(fontSize: 30)),
+            Text(_response, style: TextStyle(fontSize: 15), textAlign: TextAlign.left),
           ],
         ),
       ),
