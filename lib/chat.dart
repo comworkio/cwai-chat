@@ -13,11 +13,15 @@ class _ChatComponentState extends State<ChatComponent> {
   final _textQuestionController = TextEditingController();
   final _textResponseController = TextEditingController();
   final _focusNode = FocusNode();
+  bool _isVisible = false;
 
   void _submitQuestion(String question) async {
     _textQuestionController.text = question;
     _textResponseController.text = 'Computing the answer...';
     _textFieldController.clear();
+    setState(() {
+      _isVisible = true;
+    });
 
     var apiUrl = Uri.parse('\${API_URL}/v1/prompt');
 
@@ -64,54 +68,60 @@ class _ChatComponentState extends State<ChatComponent> {
               autofocus: true,
             ),
             SizedBox(height: 10),
-            TextField(
-              controller: _textQuestionController,
-              enabled: false,
-              decoration: InputDecoration(
-                hintText: 'Your question will be kept here...',
-                filled: true,
-                fillColor: Color(0xFFDEDEDE),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                  borderSide: BorderSide(
-                    color: Color(0xFFEFEFEF),
-                    width: 1.0,
+            Visibility(
+              visible: _isVisible,
+              child: TextField(
+                controller: _textQuestionController,
+                enabled: false,
+                decoration: InputDecoration(
+                  hintText: 'Your question will be kept here...',
+                  filled: true,
+                  fillColor: Color(0xFFDEDEDE),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(
+                      color: Color(0xFFEFEFEF),
+                      width: 1.0,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(
+                      color: Color(0xFF114575),
+                      width: 2.0,
+                    ),
                   ),
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                  borderSide: BorderSide(
-                    color: Color(0xFF114575),
-                    width: 2.0,
-                  ),
-                ),
-              ),
-              maxLines: null
+                maxLines: null
+              )
             ),
             SizedBox(height: 10),
-            TextField(
-              controller: _textResponseController,
-              enabled: false,
-              decoration: InputDecoration(
-                hintText: 'The answer will appear here...',
-                filled: true,
-                fillColor: Color(0xFFDEDEDE),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                  borderSide: BorderSide(
-                    color: Color(0xFFEFEFEF),
-                    width: 1.0,
+            Visibility(
+              visible: _isVisible,
+              child: TextField(
+                controller: _textResponseController,
+                enabled: false,
+                decoration: InputDecoration(
+                  hintText: 'The answer will appear here...',
+                  filled: true,
+                  fillColor: Color(0xFFDEDEDE),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(
+                      color: Color(0xFFEFEFEF),
+                      width: 1.0,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(
+                      color: Color(0xFF114575),
+                      width: 2.0,
+                    ),
                   ),
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                  borderSide: BorderSide(
-                    color: Color(0xFF114575),
-                    width: 2.0,
-                  ),
-                ),
-              ),
-              maxLines: null
+                maxLines: null
+              )
             )
           ],
         ),
