@@ -14,7 +14,7 @@ class _ChatComponentState extends State<ChatComponent> {
   final _focusNode = FocusNode();
 
   void _submitQuestion(String question) async {
-    var apiUrl = Uri.parse('https://cwai-api.comwork.io/v1/prompt');
+    var apiUrl = Uri.parse('\${API_URL}/v1/prompt');
 
     var body = json.encode({
       'message': question

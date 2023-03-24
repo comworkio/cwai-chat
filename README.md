@@ -2,6 +2,12 @@
 
 ## Getting started in localhost
 
+First, create an environment variables file:
+
+```shell
+cp .env.dist .env # replace the values
+```
+
 ```shell
 docker-compose -f docker-compose-local.yml up --build --force-recreate
 ```
