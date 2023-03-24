@@ -1,0 +1,10 @@
+version: '3.3'
+services:
+  cwai_chat_prod:
+    restart: always
+    container_name: cwai_chat_prod
+    image: comworkio/cwai_chat:${VERSION}
+    env_file: 
+      - .env.prod
+    ports:
+      - "8112:80"

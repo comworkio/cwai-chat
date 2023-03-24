@@ -1,0 +1,59 @@
+stages:
+  - publish
+  - build
+  - deploy
+
+mirror:
+  stage: publish
+  script:
+    - setsid ./ci/mirror.sh
+  only:
+    - /^(main.*)$/
+  tags:
+    - mirror
+
+build_image:
+  stage: build
+  only:
+    refs:
+      - /^(main|develop.*)$/
+    changes:
+      - src/api/**
+      - src/utils/**
+      - src/*
+      - ci/*
+      - Dockerfile
+      - requirements.txt
+      - cloud_environments_prod.yml
+      - docker-compose-build.yml
+      - docker-compose-prod.yml
+      - .gitlab-ci.yml
+  tags:
+    - imagesbuilder
+  script:
+    - chmod +x ./ci/deliver.sh
+    - ./ci/deliver.sh
+
+deploy_image:
+  stage: deploy
+  needs:
+    - build_image
+  script:
+    - chmod +x ./ci/deploy.sh
+    - ./ci/deploy.sh
+  only:
+    refs:
+      - /^(main|develop.*)$/
+    changes:
+      - src/api/**
+      - src/utils/**
+      - src/*
+      - ci/*
+      - Dockerfile
+      - requirements.txt
+      - cloud_environments_prod.yml
+      - docker-compose-build.yml
+      - docker-compose-prod.yml
+      - .gitlab-ci.yml
+  tags:
+    - web
