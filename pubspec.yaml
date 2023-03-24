@@ -13,5 +13,6 @@ dependencies:
 
 flutter:
   uses-material-design: true
-  assets: []
+  assets:
+    - assets/images/logo-comwork.png
   fonts: []

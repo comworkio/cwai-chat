@@ -16,7 +16,12 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('CWAI Chat'),
+        leading: Image.asset('assets/images/logo-comwork.png'),
+        centerTitle: false,
+        title: Text(
+          'CWAI Chat',
+          textAlign: TextAlign.left
+        ),
         backgroundColor: Color(0xFF114575)
       ),
       body: Column(

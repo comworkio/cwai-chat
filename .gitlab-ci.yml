@@ -17,17 +17,6 @@ build_image:
   only:
     refs:
       - /^(main|develop.*)$/
-    changes:
-      - src/api/**
-      - src/utils/**
-      - src/*
-      - ci/*
-      - Dockerfile
-      - requirements.txt
-      - cloud_environments_prod.yml
-      - docker-compose-build.yml
-      - docker-compose-prod.yml
-      - .gitlab-ci.yml
   tags:
     - imagesbuilder
   script:
@@ -44,16 +33,5 @@ deploy_image:
   only:
     refs:
       - /^(main|develop.*)$/
-    changes:
-      - src/api/**
-      - src/utils/**
-      - src/*
-      - ci/*
-      - Dockerfile
-      - requirements.txt
-      - cloud_environments_prod.yml
-      - docker-compose-build.yml
-      - docker-compose-prod.yml
-      - .gitlab-ci.yml
   tags:
     - web
