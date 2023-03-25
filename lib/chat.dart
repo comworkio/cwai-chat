@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ChatComponent extends StatefulWidget {
   @override
@@ -132,7 +133,14 @@ class _ChatComponentState extends State<ChatComponent> {
               visible: _isVisible,
               child: ElevatedButton(
                 onPressed: _regenerateResponse,
-                child: Text('Regenerate response'),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FaIcon(FontAwesomeIcons.refresh), 
+                    SizedBox(width: 10),
+                    Text('Regenerate response')
+                  ],
+                ),
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF114575)), 
                 ),
