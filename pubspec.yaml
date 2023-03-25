@@ -14,5 +14,7 @@ dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - web/assets/
+    - assets/images/
+    - assets/css/
+    - assets/js/
   fonts: []
