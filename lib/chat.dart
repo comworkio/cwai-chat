@@ -14,9 +14,26 @@ class _ChatComponentState extends State<ChatComponent> {
   final _textQuestionController = TextEditingController();
   final _textResponseController = TextEditingController();
   final _focusNode = FocusNode();
+  final _apiUrl = "\${API_URL}";
   bool _isVisible = false;
+  String? _model = null;
+  List<String> _models = [];
 
-  void _submitQuestion(String question) async {
+  Future<void> _initModelsList() async {
+    var modelsUrl = Uri.parse('${_apiUrl}/v1/models');
+    var result = await http.get(modelsUrl);
+    var response = json.decode(result.body);
+    setState(() {
+      _models = List<String>.from(response['models']);
+      _model = _models[0];
+    });
+  }
+
+  void _switchModel(String? model) {
+    _model = model;
+  }
+
+  Future<void> _submitQuestion(String question) async {
     _textQuestionController.text = question;
     _textResponseController.text = 'Computing the answer...';
     _textFieldController.clear();
@@ -24,7 +41,7 @@ class _ChatComponentState extends State<ChatComponent> {
       _isVisible = true;
     });
 
-    var apiUrl = Uri.parse('\${API_URL}/v1/prompt');
+    var promptUrl = Uri.parse('${_apiUrl}/v2/prompt/${_model}');
 
     var body = json.encode({
       'message': question
@@ -34,7 +51,7 @@ class _ChatComponentState extends State<ChatComponent> {
       'Content-Type': 'application/json',
     };
 
-    var result = await http.post(apiUrl, body: body, headers: headers);
+    var result = await http.post(promptUrl, body: body, headers: headers);
     var response = json.decode(result.body);
 
     _textResponseController.text = response['response'][0];
@@ -55,22 +72,46 @@ class _ChatComponentState extends State<ChatComponent> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _initModelsList();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         child: Column(
           children: [
             SizedBox(height: 10),
-            TextField(
-              controller: _textFieldController,
-              focusNode: _focusNode,
-              decoration: InputDecoration(
-                hintText: 'Write your question here...',
-              ),
-              onSubmitted: (String question) {
-                _submitQuestion(question);
-              },
-              autofocus: true,
+            Row(
+              children: [
+                SizedBox(width: 10),
+                DropdownButton<String>(
+                  value: _model,
+                  items: _models.map((String model) {
+                    return DropdownMenuItem<String>(
+                      value: model,
+                      child: Text(model),
+                    );
+                  }).toList(),
+                  onChanged: (String? model) {
+                    _switchModel(model);
+                  },
+                ),
+                SizedBox(width: 10),
+                TextField(
+                  controller: _textFieldController,
+                  focusNode: _focusNode,
+                  decoration: InputDecoration(
+                    hintText: 'Write your question here...',
+                  ),
+                  onSubmitted: (String question) {
+                    _submitQuestion(question);
+                  },
+                  autofocus: true,
+                )
+              ]
             ),
             SizedBox(height: 10),
             Visibility(
