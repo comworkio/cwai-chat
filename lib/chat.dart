@@ -16,7 +16,7 @@ class _ChatComponentState extends State<ChatComponent> {
   final _focusNode = FocusNode();
   final _apiUrl = "\${API_URL}";
   bool _isVisible = false;
-  String? _model = null;
+  String _model = null;
   List<String> _models = [];
 
   Future<void> _initModelsList() async {
@@ -34,7 +34,9 @@ class _ChatComponentState extends State<ChatComponent> {
   }
 
   void _switchModel(String? model) {
-    _model = model;
+    setState(() {
+      _model = model;
+    }
   }
 
   Future<void> _submitQuestion(String question) async {
@@ -103,9 +105,7 @@ class _ChatComponentState extends State<ChatComponent> {
                       child: Text(model),
                     );
                   }).toList(),
-                  onChanged: (String? model) {
-                    _switchModel(model);
-                  },
+                  onChanged: (model) => setState(() => _model = model),
                 ),
                 SizedBox(width: 10),
                 TextField(
