@@ -31,7 +31,7 @@ class _ChatComponentState extends State<ChatComponent> {
   }
 
   void _switchModel(String? model) {
-    _textModelController.text = model;
+    _textModelController.clear();
     _model = model;
   }
 
@@ -91,7 +91,6 @@ class _ChatComponentState extends State<ChatComponent> {
               children: [
                 SizedBox(width: 10),
                 DropdownButton<String>(
-                  controller: _textModelController,
                   value: _model,
                   items: _models.map((String model) {
                     return DropdownMenuItem<String>(
