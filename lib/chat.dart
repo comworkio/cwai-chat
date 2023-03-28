@@ -22,6 +22,10 @@ class _ChatComponentState extends State<ChatComponent> {
   Future<void> _initModelsList() async {
     var modelsUrl = Uri.parse('${_apiUrl}/v1/models');
     var result = await http.get(modelsUrl);
+    if (result.statusCode != 200) {
+      throw Exception('API request failed with status code ${result.statusCode}');
+    }
+
     var response = json.decode(result.body);
     setState(() {
       _models = List<String>.from(response['models']);
@@ -52,6 +56,10 @@ class _ChatComponentState extends State<ChatComponent> {
     };
 
     var result = await http.post(promptUrl, body: body, headers: headers);
+    if (result.statusCode != 200) {
+      throw Exception('API request failed with status code ${result.statusCode}');
+    }
+
     var response = json.decode(result.body);
 
     _textResponseController.text = response['response'][0];
