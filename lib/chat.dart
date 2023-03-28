@@ -13,7 +13,6 @@ class _ChatComponentState extends State<ChatComponent> {
   final _textFieldController = TextEditingController();
   final _textQuestionController = TextEditingController();
   final _textResponseController = TextEditingController();
-  final _textModelController = TextEditingController();
   final _focusNode = FocusNode();
   final _apiUrl = "\${API_URL}";
   bool _isVisible = false;
@@ -31,7 +30,6 @@ class _ChatComponentState extends State<ChatComponent> {
   }
 
   void _switchModel(String? model) {
-    _textModelController.clear();
     _model = model;
   }
 
@@ -69,7 +67,6 @@ class _ChatComponentState extends State<ChatComponent> {
     _textFieldController.dispose();
     _textQuestionController.dispose();
     _textResponseController.dispose();
-    _textModelController.dispose();
     _focusNode.dispose();
     super.dispose();
   }
