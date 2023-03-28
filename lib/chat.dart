@@ -26,11 +26,15 @@ class _ChatComponentState extends State<ChatComponent> {
       throw Exception('API request failed with status code ${result.statusCode}');
     }
 
-    var response = json.decode(result.body);
-    setState(() {
-      _models = List<String>.from(response['models']);
-      _model = _models[0];
-    });
+    try {
+      var response = json.decode(result.body);
+      setState(() {
+        _models = List<String>.from(response['models']);
+        _model = _models[0];
+      });
+    } catch(e) {
+      throw Exception("Fail to decode response['models']: ${e}");
+    }
   }
 
   void _switchModel(String? model) {
@@ -62,9 +66,12 @@ class _ChatComponentState extends State<ChatComponent> {
       throw Exception('API request failed with status code ${result.statusCode}');
     }
 
-    var response = json.decode(result.body);
-
-    _textResponseController.text = response['response'][0];
+    try {
+      var response = json.decode(result.body);
+      _textResponseController.text = response['response'][0];
+    } catch(e) {
+      throw Exception("Fail to decode response['response'][0]: ${e}");
+    }
     _focusNode.requestFocus();
   }
 
