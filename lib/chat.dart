@@ -16,7 +16,7 @@ class _ChatComponentState extends State<ChatComponent> {
   final _focusNode = FocusNode();
   final _apiUrl = "\${API_URL}";
   bool _isVisible = false;
-  String? _model = null;
+  String _model = null;
   List<String> _models = [];
 
   Future<void> _initModelsList() async {
