@@ -20,10 +20,10 @@ class _ChatComponentState extends State<ChatComponent> {
   List<String> _models = [];
 
   Future<void> _initModelsList() async {
-    var modelsUrl = Uri.parse('${_apiUrl}/v1/models');
-    var result = await http.get(modelsUrl);
-    var response = json.decode(result.body);
-    setState(() {
+    setState(() async {
+      var modelsUrl = Uri.parse('${_apiUrl}/v1/models');
+      var result = await http.get(modelsUrl);
+      var response = json.decode(result.body);
       _models = List<String>.from(response['models']);
       _model = _models[0];
     });
