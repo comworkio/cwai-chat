@@ -34,7 +34,9 @@ class _ChatComponentState extends State<ChatComponent> {
   }
 
   void _switchModel(String? model) {
-    _model = model;
+    setState(() {
+      _model = model;
+    }
   }
 
   Future<void> _submitQuestion(String question) async {
