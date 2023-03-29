@@ -94,29 +94,36 @@ class _ChatComponentState extends State<ChatComponent> {
         child: Column(
           children: [
             SizedBox(height: 10),
-            DropdownButton<String>(
-              value: _model,
-              items: _models.map((String model) {
-                return DropdownMenuItem<String>(
-                  value: model,
-                  child: Text(model),
-                );
-              }).toList(),
-              onChanged: (String? model) {
-                _switchModel(model);
-              },
-            ),
-            SizedBox(height: 10),
-            TextField(
-              controller: _textFieldController,
-              focusNode: _focusNode,
-              decoration: InputDecoration(
-                hintText: 'Write your question here...',
-              ),
-              onSubmitted: (String question) {
-                _submitQuestion(question);
-              },
-              autofocus: true,
+            Row(
+              children: [
+                SizedBox(width: 10),
+                DropdownButton<String>(
+                  value: _model,
+                  items: _models.map((String model) {
+                    return DropdownMenuItem<String>(
+                      value: model,
+                      child: Text(model),
+                    );
+                  }).toList(),
+                  onChanged: (String? model) {
+                    _switchModel(model);
+                  },
+                ),
+                SizedBox(width: 10),
+                Expanded(
+                  child: TextField(
+                    controller: _textFieldController,
+                    focusNode: _focusNode,
+                    decoration: InputDecoration(
+                      hintText: 'Write your question here...',
+                    ),
+                    onSubmitted: (String question) {
+                      _submitQuestion(question);
+                    },
+                    autofocus: true,
+                  )
+                )
+              ]
             ),
             SizedBox(height: 10),
             Visibility(
