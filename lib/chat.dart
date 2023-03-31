@@ -51,6 +51,7 @@ class _ChatComponentState extends State<ChatComponent> {
 
     var body = json.encode({
       'message': question
+      'settings': {}
     });
 
     var headers = {
