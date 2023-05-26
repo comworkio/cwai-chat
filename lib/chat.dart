@@ -28,7 +28,7 @@ class _ChatComponentState extends State<ChatComponent> {
     var basic = base64Encode(utf8.encode('${_apiUsername}:${_apiPassword}'));
     var headers = {
       HttpHeaders.authorizationHeader: 'Basic ${basic}';
-    }
+    };
 
     var result = await http.get(modelsUrl, headers: headers);
     if (result.statusCode != 200) {
