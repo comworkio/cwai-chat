@@ -5,9 +5,8 @@ source ./ci/compute-env.sh
 ENV_FILE=".env.${ENV}"
 
 echo "VERSION=${VERSION}" > "${ENV_FILE}"
-echo "API_URL=${API_URL}" >> "${ENV_FILE}"
 
-env|grep -E "^(MATOMO)_"|while read -r; do
+env|grep -E "^(MATOMO|API)_"|while read -r; do
   echo "${REPLY}" >> "${ENV_FILE}"
 done
 

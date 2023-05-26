@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -15,13 +16,23 @@ class _ChatComponentState extends State<ChatComponent> {
   final _textResponseController = TextEditingController();
   final _focusNode = FocusNode();
   final _apiUrl = "\${API_URL}";
+  final _apiUsername = "\${API_USERNAME}";
+  final _apiPassword = "\${API_PASSWORD}";
   bool _isVisible = false;
   String? _model = null;
   List<String> _models = [];
 
   Future<void> _initModelsList() async {
     var modelsUrl = Uri.parse('${_apiUrl}/v1/models');
-    var result = await http.get(modelsUrl);
+
+    var headers = {}
+    if (_apiUsername && _apiPassword) {
+      headers = {
+        HttpHeaders.authorizationHeader: 'Basic ' + base64Encode('$_apiUsername:$_apiPassword')
+      }
+    }
+
+    var result = await http.get(modelsUrl, headers: headers);
     if (result.statusCode != 200) {
       throw Exception('API request failed with status code ${result.statusCode}');
     }
@@ -56,6 +67,13 @@ class _ChatComponentState extends State<ChatComponent> {
     var headers = {
       'Content-Type': 'application/json',
     };
+
+    if (_apiUsername && _apiPassword) {
+      headers = {
+        'Content-Type': 'application/json',
+        HttpHeaders.authorizationHeader: 'Basic ' + base64Encode('$_apiUsername:$_apiPassword')
+      }
+    }
 
     var result = await http.post(promptUrl, body: body, headers: headers);
     if (result.statusCode != 200) {
