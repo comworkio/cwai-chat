@@ -25,8 +25,9 @@ class _ChatComponentState extends State<ChatComponent> {
   Future<void> _initModelsList() async {
     var modelsUrl = Uri.parse('${_apiUrl}/v1/models');
 
+    var basic = base64Encode('${_apiUsername}:${_apiPassword}');
     var headers = {
-      HttpHeaders.authorizationHeader: 'Basic ' + base64Encode(_apiUsername + ':' + _apiPassword);
+      HttpHeaders.authorizationHeader: 'Basic ${basic}';
     }
 
     var result = await http.get(modelsUrl, headers: headers);
@@ -61,10 +62,10 @@ class _ChatComponentState extends State<ChatComponent> {
       'message': question
     });
 
-
+    var basic = base64Encode('${_apiUsername}:${_apiPassword}');
     var headers = {
       'Content-Type': 'application/json',
-      HttpHeaders.authorizationHeader: 'Basic ' + base64Encode(_apiUsername + ':' + _apiPassword)
+      HttpHeaders.authorizationHeader: 'Basic ${basic}'
     };
 
     var result = await http.post(promptUrl, body: body, headers: headers);
