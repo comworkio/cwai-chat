@@ -1,8 +1,10 @@
 # CWAI-CHAT
 
-This is a chat GUI for the [CWAI API](https://cwai-api.comwork.io).
+This is a chat GUI for the [CWAI API](https://gitlab.comwork.io/oss/cwai/cwai-api).
 
-You'll find a hosted version here: https://cwai.comwork.io
+![gui1](./img/gui1.png)
+
+![gui2](./img/gui2.png)
 
 ## Git repositories
 
