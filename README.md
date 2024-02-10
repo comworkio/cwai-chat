@@ -9,7 +9,7 @@ This is a chat GUI for the [CWAI API](https://gitlab.comwork.io/oss/cwai/cwai-ap
 ## Git repositories
 
 * Main repo: https://gitlab.comwork.io/oss/cwai/cwai-chat.git
-* Github mirror: https://github.com/idrissneumann/cwai-chat.git
+* Github mirror: https://github.com/comworkio/cwai-chat.git
 * Gitlab mirror: https://gitlab.com/ineumann/cwai-chat.git
 
 ## Getting started in localhost
