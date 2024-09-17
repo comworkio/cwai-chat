@@ -10,5 +10,5 @@ echo "POSTGRES_PORT=${CI_POSTGRES_PORT}" >> .env
 
 docker login --username "${DOCKER_USERNAME}" --password "${DOCKER_ACCESS_TOKEN}"
 docker-compose -f docker-compose-build.yml build  "${IMAGE_NAME}"
-docker tag "${IMAGE_NAME}:latest" "${CI_REGISTRY_USER}/${IMAGE_NAME}:${VERSION}"
-docker push "${CI_REGISTRY_USER}/${IMAGE_NAME}:${VERSION}"
+docker tag "${IMAGE_NAME}:latest" "${DOCKER_REGISTRY}/${IMAGE_NAME}:${VERSION}"
+docker push "${DOCKER_REGISTRY}/${IMAGE_NAME}:${VERSION}"
